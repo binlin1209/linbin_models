@@ -18,7 +18,7 @@ def evaluate(sleep):
         y_ = tf.placeholder(tf.float32, [None, sleep_inference.OUTPUT_NODE], name='y-input')
         validate_feed = {x: sleep.validation.images, y_: sleep.validation.labels}
 
-        y = sleep_inference.inference(x, None)
+        y = sleep_inference.inference(x, False)
         correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
         accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
