@@ -1,0 +1,3 @@
+model_checkpoint_path: "E:\\sleep_dir\\data_mat_final_new2\\sleep_experiment\\Saved_model\\model_sleep.ckpt-1001"
+all_model_checkpoint_paths: "E:\\sleep_dir\\data_mat_final_new2\\sleep_experiment\\Saved_model\\model_sleep.ckpt-1"
+all_model_checkpoint_paths: "E:\\sleep_dir\\data_mat_final_new2\\sleep_experiment\\Saved_model\\model_sleep.ckpt-1001"
