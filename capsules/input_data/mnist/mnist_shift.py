@@ -21,6 +21,9 @@ the image and label pair as a tf.Example in a tfrecords file.
   Sample usage:
     python mnist_shift --data_dir=PATH_TO_MNIST_DIRECTORY
       --shift=2 --pad=0 --split=train
+python mnist_shift --data_dir="E:\\sleep_dir\\data_mat_final_new2\\mnist_pic" --shift=2 --pad=0 --split=train      
+
+python mnist_shift.py  --data_dir="E:\sleep_dir\data_mat_final_new2\mnist_pic_decompression" --shift=2 --pad=0 --split=train
 """
 
 from __future__ import absolute_import
@@ -34,7 +37,7 @@ import tensorflow as tf
 
 FLAGS = tf.flags.FLAGS
 
-tf.flags.DEFINE_string('data_dir', '/tmp/tensorflow/mnist/input_data',
+tf.flags.DEFINE_string('data_dir', 'E:\\sleep_dir\\data_mat_final_new2\\mnist_pic\\input_data',
                        'Directory for storing input data')
 tf.flags.DEFINE_integer('shift', 2, 'Maximum shift range.')
 tf.flags.DEFINE_integer('pad', 0, 'Padding size.')
@@ -49,10 +52,10 @@ tf.flags.DEFINE_string(
     'The split of data to process: train, test, valid_train or valid_test.')
 
 MNIST_FILES = {
-    'train': ('train-images-idx3-ubyte', 'train-labels-idx1-ubyte'),
-    'valid_train': ('train-images-idx3-ubyte', 'train-labels-idx1-ubyte'),
-    'valid_test': ('train-images-idx3-ubyte', 'train-labels-idx1-ubyte'),
-    'test': ('t10k-images-idx3-ubyte', 't10k-labels-idx1-ubyte')
+    'train': ('train-images-idx3-ubyte.gz', 'train-labels-idx1-ubyte.gz'),
+    'valid_train': ('train-images-idx3-ubyte.gz', 'train-labels-idx1-ubyte.gz'),
+    'valid_test': ('train-images-idx3-ubyte.gz', 'train-labels-idx1-ubyte.gz'),
+    'test': ('t10k-images-idx3-ubyte.gz', 't10k-labels-idx1-ubyte.gz')
 }
 
 MNIST_RANGE = {
@@ -237,10 +240,12 @@ def read_byte_data(data_dir, split):
   image_file, label_file = (
       os.path.join(data_dir, file_name) for file_name in MNIST_FILES[split])
   start, end = MNIST_RANGE[split]
-  with open(image_file, 'r') as f:
+  import pdb; pdb.set_trace()
+  with open(image_file, 'rb') as f:
     images = read_file(f, 4, end * IMAGE_SIZE_PX * IMAGE_SIZE_PX)
+    import pdb; pdb.set_trace()
     images = images.reshape(end, IMAGE_SIZE_PX, IMAGE_SIZE_PX)
-  with open(label_file, 'r') as f:
+  with open(label_file, 'rb') as f:
     labels = read_file(f, 2, end)
 
   return zip(images[start:], labels[start:])
