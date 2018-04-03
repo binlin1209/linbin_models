@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import time
+
 import tensorflow as tf
+
 # from tensorflow.examples.tutorials.mnist import input_data
 import sleep_inference
 import sleep_train
@@ -10,11 +12,11 @@ from sleep_inputdata import *
 # 加载的时间间隔。
 EVAL_INTERVAL_SECS = 10
 
-def evaluate(mnist):
+def evaluate(sleep):
     with tf.Graph().as_default() as g:
         x = tf.placeholder(tf.float32, [None, sleep_inference.INPUT_NODE], name='x-input')
         y_ = tf.placeholder(tf.float32, [None, sleep_inference.OUTPUT_NODE], name='y-input')
-        validate_feed = {x: mnist.validation.images, y_: mnist.validation.labels}
+        validate_feed = {x: sleep.validation.images, y_: sleep.validation.labels}
 
         y = sleep_inference.inference(x, None)
         correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))

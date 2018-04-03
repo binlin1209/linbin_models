@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import tensorflow as tf
-from sleep_inputdata import *
-import sleep_inference
 import os
+
 import numpy as np
+import tensorflow as tf
+
+import sleep_inference
+from sleep_inputdata import *
 
 BATCH_SIZE = 100
 LEARNING_RATE_BASE = 0.01
@@ -27,7 +29,7 @@ def train(sleep):
     y_ = tf.placeholder(tf.float32, [None, sleep_inference.OUTPUT_NODE], name='y-input')
 
     regularizer = tf.contrib.layers.l2_regularizer(REGULARIZATION_RATE)
-    y = sleep_inference.inference(x, False, regularizer)
+    y = sleep_inference.inference(x, True, regularizer)
     global_step = tf.Variable(0, trainable=False)
 
     # 定义损失函数、学习率、滑动平均操作以及训练过程。
