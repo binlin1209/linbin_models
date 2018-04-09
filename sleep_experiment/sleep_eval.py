@@ -2,11 +2,7 @@
 
 import time
 import tensorflow as tf
-<<<<<<< HEAD
 
-=======
-#from tensorflow.examples.tutorials.mnist import input_data
->>>>>>> 85f3c16e469e876947579e9a2dbd92ce9238e942
 import sleep_inference
 import sleep_train
 from sleep_inputdata import *

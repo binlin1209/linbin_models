@@ -59,5 +59,8 @@ def main(argv=None):
     mnist = read_data_sets("sleep", one_hot=True)
     evaluate(sleep)
 
+    sleep = read_data_sets("sleep", one_hot=True)
+    evaluate(sleep)
+
 if __name__ == '__main__':
     main()
