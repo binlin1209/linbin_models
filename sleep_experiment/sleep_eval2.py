@@ -31,7 +31,7 @@ def evaluate(sleep):
         variable_averages = tf.train.ExponentialMovingAverage(sleep_train.MOVING_AVERAGE_DECAY)
         variables_to_restore = variable_averages.variables_to_restore()
         saver = tf.train.Saver(variables_to_restore)
-
+        
         #n = math.ceil(mnist.test.num_examples / LeNet5_train.BATCH_SIZE)
         n = math.ceil(sleep.test.num_examples / sleep.test.num_examples)
         for i in range(n):

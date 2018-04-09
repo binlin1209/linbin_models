@@ -227,7 +227,7 @@ def read_data_sets(train_dir,
   total_700anno_1channel = zong_700anno[0][:7000]
   EEG_1channel = numpy.row_stack((total_EEG_1channel, total_700EEG_1channel))
   label_1channel = numpy.concatenate((total_anno_1channel, total_700anno_1channel), axis=0)
-  data_train, data_test, label_train, label_test = train_test_split(EEG_1channel, label_1channel, test_size=0.7,
+  data_train, data_test, label_train, label_test = train_test_split(EEG_1channel, label_1channel, test_size=0.3,
                                                                     random_state=0)
   data_valid, data_test, label_valid, label_test = train_test_split(data_test, label_test, test_size=0.5,
                                                                     random_state=0)

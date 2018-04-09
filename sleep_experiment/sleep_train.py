@@ -6,7 +6,7 @@ import sleep_inference
 import os
 import numpy as np
 
-BATCH_SIZE = 100
+BATCH_SIZE = 200
 LEARNING_RATE_BASE = 0.01
 LEARNING_RATE_DECAY = 0.99
 REGULARIZATION_RATE = 0.0001
@@ -49,10 +49,10 @@ def train(sleep):
 
     # 初始化TensorFlow持久化类。
     ### add by linbin 20180404
-#    saver = tf.train.Saver()
-#    variable_averages = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY)
-    variables_to_restore = variable_averages.variables_to_restore()
-    saver = tf.train.Saver(variables_to_restore)
+    saver = tf.train.Saver()
+    # variable_averages = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY)
+#     variables_to_restore = variable_averages.variables_to_restore()
+#     saver = tf.train.Saver(variables_to_restore)
     
     with tf.Session() as sess:
         tf.global_variables_initializer().run()
