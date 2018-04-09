@@ -4,13 +4,12 @@ import time
 
 import tensorflow as tf
 
-# from tensorflow.examples.tutorials.mnist import input_data
 import sleep_inference
 import sleep_train
 from sleep_inputdata import *
 
 # 加载的时间间隔。
-EVAL_INTERVAL_SECS = 10
+EVAL_INTERVAL_SECS = 600
 
 def evaluate(sleep):
     with tf.Graph().as_default() as g:
