@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 
-import os
-
-import numpy as np
 import tensorflow as tf
-
-import sleep_inference
 from sleep_inputdata import *
+import sleep_inference
+import os
+import numpy as np
 
 BATCH_SIZE = 100
 LEARNING_RATE_BASE = 0.01
 LEARNING_RATE_DECAY = 0.99
 REGULARIZATION_RATE = 0.0001
-TRAINING_STEPS = 6000
+TRAINING_STEPS = 200000
 MOVING_AVERAGE_DECAY = 0.99
 
 MODEL_SAVE_PATH = "E:\\sleep_dir\\data_mat_final_new2\\sleep_experiment\\Saved_model"
@@ -35,6 +33,7 @@ def train(sleep):
     # 定义损失函数、学习率、滑动平均操作以及训练过程。
     variable_averages = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY, global_step)
     variables_averages_op = variable_averages.apply(tf.trainable_variables())
+    
     cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=y, labels=tf.argmax(y_, 1))
     cross_entropy_mean = tf.reduce_mean(cross_entropy)
     loss = cross_entropy_mean + tf.add_n(tf.get_collection('losses'))
@@ -49,7 +48,12 @@ def train(sleep):
         train_op = tf.no_op(name='train')
 
     # 初始化TensorFlow持久化类。
-    saver = tf.train.Saver()
+    ### add by linbin 20180404
+#    saver = tf.train.Saver()
+#    variable_averages = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY)
+    variables_to_restore = variable_averages.variables_to_restore()
+    saver = tf.train.Saver(variables_to_restore)
+    
     with tf.Session() as sess:
         tf.global_variables_initializer().run()
         for i in range(TRAINING_STEPS):
@@ -64,6 +68,8 @@ def train(sleep):
 
             if i % 1000 == 0:
                 print("After %d training step(s), loss on training batch is %g." % (step, loss_value))
+                lr = sess.run([learning_rate], feed_dict={x: reshaped_xs, y_: ys})
+                print('learning rate: %.6f' % (lr[0]))
                 saver.save(sess, os.path.join(MODEL_SAVE_PATH, MODEL_NAME),
                            global_step=global_step)
 
